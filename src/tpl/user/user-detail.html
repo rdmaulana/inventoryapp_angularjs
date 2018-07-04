@@ -1,0 +1,147 @@
+    <div class="bg-light lter b-b wrapper-md" ng-controller="userDetailCtrl">
+      <button type="button" tooltip="Delete user" class="btn btn-sm btn-danger btn-addon pull-right" ng-click="remove()">
+          <i class="fa fa-trash"></i>Delete Employee
+      </button>
+      <h1 class="m-n font-thin h3">Detail Employee #{{users.nama_depan}}&nbsp;{{users.nama_belakang}}</h1>
+    </div>
+
+    <div class="wrapper-md" ng-controller="userDetailCtrl">
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="clearfix text-center m-t">
+              <div class="inline">
+                <div ui-jq="easyPieChart" ui-options="{
+                      percent: 75,
+                      lineWidth: 5,
+                      trackColor: '{{app.color.light}}',
+                      barColor: '{{app.color.info}}',
+                      scaleColor: false,
+                      color: '{{app.color.dark}}',
+                      size: 134,
+                      lineCap: 'butt',
+                      rotate: -90,
+                      animate: 1000
+                    }">
+                  <div class="thumb-xl">
+                    <img src="../../src/img/a8.jpg" class="img-circle" alt="...">
+                  </div>
+                </div>
+                <div class="h4 m-t m-b-xs">{{users.nama_depan}}&nbsp;{{users.nama_belakang}}</div>
+                <small class="text-muted m-b">Division of {{users.divisi.nama_divisi}}</small>
+              </div>                      
+            </div>
+          </div>
+          <footer class="panel-footer bg-info text-center no-padder">
+            <div class="row no-gutter">
+              <div class="col-xs-12">
+                <div class="wrapper">
+                  <span class="m-b-xs h3 block text-white">{{users.transaksi.length}}</span>
+                  <small class="text-muted">Loan Total</small>
+                </div>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <strong>Employee Info</strong>
+            </div>
+            <div class="panel-body">       
+              <div class="form-group">
+                <label class="col-sm-3 control-label">ID:</label>
+                <div class="col-sm-9">
+                  <label class="control-label"><strong>{{users.kode_pengguna}}</strong></label>
+                </div>
+              </div>
+              <div class="line line-dashed b-b line-lg pull-in"></div>             
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Name:</label>
+                <div class="col-sm-9">
+                  <label class="control-label"><strong>{{users.nama_depan}}&nbsp;{{users.nama_belakang}}</strong></label>
+                </div>
+              </div>
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Username:</label>
+                <div class="col-sm-9">
+                  <p class="control-label"><strong>{{users.username}}</strong></p>
+                </div>
+              </div>
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Email:</label>
+                <div class="col-sm-9">
+                  <p class="control-label"><strong>{{users.email}}</strong></p>
+                </div>
+              </div>
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Contact:</label>
+                <div class="col-sm-9">
+                  <p class="control-label"><strong>{{users.no_hp}}</strong></p>
+                </div>
+              </div>
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Division:</label>
+                <div class="col-sm-9">
+                  <p class="control-label"><strong>{{users.divisi.nama_divisi}}</strong></p>
+                </div>
+              </div>
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Address:</label>
+                <div class="col-sm-9">
+                  <p class="control-label"><strong>{{users.alamat}}</strong></p>
+                </div>
+              </div>
+            </div>
+            <footer class="panel-footer text-right bg-light lter">
+              <!-- <button type="submit" class="btn btn-success">History</button> -->
+            </footer>
+          </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <strong>Loan History</strong>
+            </div>
+            <div class="panel-body">     
+               <div class="table-responsive">
+                  <table ui-jq="dataTable" ui-options="dataTableOpt" class="table table-striped b-t b-b">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>TRX-ID</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="data in users.transaksi">
+                        <td>{{$index+1}}</td>
+                        <td>{{data.kode_transaksi}}</td>
+                        <td>{{data.tgl_pinjam | date}}</td>
+                        <td>
+                          <button class="btn btn-xs btn-info">
+                            <i class="fa fa-plus text"></i>
+                            <span class="text">Details</span>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+               </div>
+            </div>
+            <footer class="panel-footer text-right bg-light lter">
+              <!-- <button type="submit" class="btn btn-success">History</button> -->
+            </footer>
+          </div>
+      </div>
+    </div>
+    

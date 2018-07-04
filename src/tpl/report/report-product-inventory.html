@@ -1,0 +1,77 @@
+<div class="bg-light lter b-b wrapper-md hidden-print">
+  <div class="btn-group dropdown pull-right" tooltip="Filter table" dropdown>
+    <button class="btn btn-sm btn-success btn-addon pull-right" dropdown-toggle><i class="fa fa-filter"></i>Filter Data <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href><strong>By Division</strong></a></li>
+      <li class="divider"></li>
+      <li><a ui-sref="app.report.product_divisi1">Development</a></li>
+      <li><a ui-sref="app.report.product_divisi2">Communication</a></li>
+      <li><a ui-sref="app.report.product_divisi3">Support</a></li>
+      <li><a ui-sref="app.report.product_divisi4">Infrastructure</a></li>
+      <li class="divider"></li>
+      <li><a href><strong>By Category</strong></a></li>
+      <li class="divider"></li>
+      <li><a ui-sref="app.report.product_category1">Office Supplies</a></li>
+      <li><a ui-sref="app.report.product_category2">Inventory</a></li>
+      <li class="divider"></li>
+      <li><a ui-sref="app.report.product">Show All</a></li>
+    </ul>
+  </div>
+  <p class="pull-right">&nbsp;&nbsp;</p>
+  <button type="button" tooltip="Print this page" class="btn btn-sm btn-info btn-addon pull-right" onClick="window.print();">
+      <i class="fa fa-print"></i>Print / Save
+  </button>
+  <h1 class="m-n font-thin h3">Report Product (Category Inventory)</h1>
+</div>
+<div class="wrapper-md" ng-controller="reportProductCtrl">
+  <div>
+    <img src="img/logo_aksimaya.png" alt=".">
+    <div class="row">
+      <div class="col-xs-6">
+        <h3>PT Pusat Media Indonesia (Aksimaya)</h3>
+        <p><a href="http://www.aksimaya.co.id">www.aksimaya.co.id</a></p>
+        
+      </div>
+      <div class="col-xs-6 text-right">
+        <p>Jl. Lincar I No.2<br>
+          16152 Bantarjati, Bogor Utara<br>
+          Bogor, Indonesia
+        </p>     
+        <p>
+          Telephone:  +62 251 8348484
+        </p>    
+      </div>
+    </div>
+    
+    <div class="line"></div>
+    <table class="table table-striped table-hover b-t b-light">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Product ID</th>
+            <th>Category</th>
+            <th>Date In</th>
+            <th>Stock</th>
+            <th>Division</th>
+            <th style="width: 15%">Price</th>
+            <th>Rent Price</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="d in filter_supplies | orderBy: '-createdAt' | limitTo:50">
+              <td>{{$index+1}}</td>
+              <td>{{d.nama}}</td>
+              <td>{{d.kode_barang}}</td>
+              <td>{{d.kategori}}</td>
+              <td>{{d.tgl_masuk | date}}</td>
+              <td>{{d.stok}}</td>
+              <td>{{d.divisi.nama_divisi}}
+              </td>
+              <td><p align="right">{{d.harga_barang | rupiah}}</p></td>
+              <td><p align="right">{{d.harga_sewa | rupiah}}</p></td>
+            </tr>
+        </tbody>
+      </table>             
+  </div>
+</div>

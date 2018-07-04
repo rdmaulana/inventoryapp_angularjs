@@ -1,0 +1,188 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
+    app.settings.asideFolded = false; 
+    app.settings.asideDock = false;
+  ">
+  <!-- main -->
+  <div class="col">
+    <!-- main header -->
+    <div class="bg-light lter b-b wrapper-md">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <h1 class="m-n font-thin h3 text-black">Dashboard</h1>
+        </div>
+        <!-- <div class="col-sm-6 text-right hidden-xs">
+          <div class="inline m-r text-left">
+            <div class="m-b-xs">1290 <span class="text-muted">items</span></div>
+            <div ng-init="data1=[ 106,108,110,105,110,109,105,104,107,109,105,100,105,102,101,99,98 ]" 
+              ui-jq="sparkline" 
+              ui-options="{{data1}}, {type:'bar', height:20, barWidth:5, barSpacing:1, barColor:'#dce5ec'}" 
+              class="sparkline inline">loading...
+            </div>
+          </div>
+          <div class="inline text-left">
+            <div class="m-b-xs">$30,000 <span class="text-muted">revenue</span></div>
+            <div ng-init="data2=[ 105,102,106,107,105,104,101,99,98,109,105,100,108,110,105,110,109 ]" 
+              ui-jq="sparkline" 
+              ui-options="{{data2}}, {type:'bar', height:20, barWidth:5, barSpacing:1, barColor:'#dce5ec'}" 
+              class="sparkline inline">loading...
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <!-- / main header -->
+    <div class="wrapper-md" ng-controller="dashboardCtrl">
+      <!-- stats -->
+      <div class="row">
+        <div class="col-md-5">
+          <div class="row row-sm text-center">
+            <div class="col-xs-6">
+              <div class="panel padder-v item bg-info">
+                <div class="h1 text-default font-thin h1">{{total_1.value}}</div>
+                <span class="text-muted text-xs">Product</span>
+                <div class="top text-right w-full">
+                  <i class="fa fa-caret-down text-warning m-r-sm"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6">
+              <a href class="block panel padder-v bg-primary item">
+                <span class="text-white font-thin h1 block">{{total_2.total}}</span>
+                <span class="text-muted text-xs">Pending Transaction</span>
+                <span class="bottom text-right w-full">
+                  <i class="fa fa-cloud-upload text-muted m-r-sm"></i>
+                </span>
+              </a>
+            </div>
+            <div class="col-xs-6">
+              <a href class="block panel padder-v bg-success item">
+                <span class="text-white font-thin h1 block">{{total_3.total}}</span>
+                <span class="text-muted text-xs">Total User</span>
+                <span class="top text-left">
+                  <i class="fa fa-caret-up text-warning m-l-sm"></i>
+                </span>
+              </a>
+            </div>
+            <div class="col-xs-6">
+              <div class="panel padder-v item bg-warning">
+                <div class="font-thin h1">{{total_4.total}}</div>
+                <span class="text-muted text-xs">Total Transaction</span>
+                <div class="bottom text-left">
+                  <i class="fa fa-caret-up text-warning m-l-sm"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 m-b-md">
+              <div class="r bg-light dker item hbox no-border">
+                <div class="col w-xs v-middle hidden-md bg-info">
+                  <!-- <div ng-init="data1=[60,40]" ui-jq="sparkline" ui-options="{{data1}}, {type:'pie', height:40, sliceColors:['{{app.color.warning}}','#fff']}" class="sparkline inline"></div> -->
+                  <div>
+                    <i class="fa fa-dropbox fa fa-5x"></i>
+                  </div>
+                </div>
+                <div class="col dk padder-v r-r">
+                  <div class="text-primary-dk font-thin h1"><span>{{total_0.stok}}</span></div>
+                  <span class="text-muted text-xs">Total Stock Product</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="panel wrapper">
+            <label class="i-switch bg-warning pull-right" ng-init="showSpline=true">
+              <input type="checkbox" ng-model="showSpline">
+              <i></i>
+            </label>
+            <h4 class="font-thin m-t-none m-b text-muted">Loan Statistics</h4>
+            <!-- <div ui-jq="plot" ui-refresh="showSpline" ui-options="
+              [
+                { data: {{d0_1}}, label:'Development', points: { show: true, radius: 1}, splines: { show: showSpline, tension: 0.4, lineWidth: 1, fill: 0.8 } },
+                { data: {{d0_2}}, label:'Support', points: { show: true, radius: 1}, splines: { show: showSpline, tension: 0.4, lineWidth: 1, fill: 0.8 } }
+              ], 
+              {
+                colors: ['{{app.color.info}}', '{{app.color.primary}}'],
+                series: { shadowSize: 3 },
+                xaxis:{ font: { color: '#a1a7ac' } },
+                yaxis:{ font: { color: '#a1a7ac' }, max:20 },
+                grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec' },
+                tooltip: true,
+                tooltipOpts: { content: 'Visits of %x.1 is %y.4',  defaultTheme: false, shifts: { x: 10, y: -25 } }
+              }
+            " style="height:246px" >
+            </div> -->
+            <!-- <fusioncharts 
+              width= "100%"
+              height= "246"
+              type= "column2d"
+              dataFormat= "json"
+              dataSource= "{{myDataSource}}">
+          </fusioncharts> -->
+          <div id="chart-container" ng-init='load()' ng-model="dataSource1">FusionCharts will render here</div>
+          </div>
+        </div>
+      </div>
+      <!-- / stats -->
+
+      <!-- tasks -->
+      <div class="row">
+        <div class="col-md-5">
+          <div class="panel no-border">
+            <div class="panel-heading wrapper b-b b-light">
+              <span class="text-xs text-muted pull-right">
+                <i class="fa fa-circle text-warning m-r-xs m-l-sm"></i> {{length_1.total}}
+              </span>
+              <h4 class="font-thin m-t-none m-b-none text-muted">Pending Order</h4>              
+            </div>
+            <ul class="list-group list-group-lg m-b-none ">
+              <li class="list-group-item" ng-repeat="d in data_status | orderBy: '-createdAt' | limitTo:max">
+                <span class="pull-left thumb-sm avatar m-r">
+                  <img src="img/shop.png" alt="...">
+                </span>
+                <span class="clear">
+                  <span>{{d.kode_transaksi}}</span>
+                  <span class="label bg-warning pull-right">{{d.status}}</span>
+                  <small class="text-muted clear text-ellipsis">Requested from {{d.pengguna.nama_depan}}&nbsp;{{d.pengguna.nama_belakang}}</small>
+                </span>
+              </li>
+            </ul>
+            <div class="panel-footer">
+              <button class="btn btn-info btn-addon btn-sm" ui-sref="app.trx.pending_request">
+                <i class="fa fa-plus"></i>View All
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7">            
+          <div class="panel no-border">
+            <div class="panel-heading wrapper b-b b-light">
+              <span class="text-xs text-muted pull-right">
+                <i class="fa fa-circle text-warning m-r-xs m-l-sm"></i> {{length_1.total}}
+              </span>
+              <h4 class="font-thin m-t-none m-b-none text-muted">Pending Product Request</h4>              
+            </div>
+            <ul class="list-group list-group-lg m-b-none">
+              <li class="list-group-item" ng-repeat="d in data_request | orderBy: '-createdAt' | limitTo:max">
+                <span class="pull-left thumb-sm avatar m-r">
+                  <img src="img/product.png" alt="...">
+                </span>
+                <span class="clear">
+                  <span>{{d.kode_request}}</span>
+                  <a ui-sref="app.product.request_detail({id: d.id})">
+                    <span class="label bg-success pull-right">View detail</span>  
+                  </a>
+                  <small class="text-muted clear text-ellipsis">Requested at {{d.createdAt | date}}</small>
+                </span>
+              </li>
+            </ul>
+            <div class="panel-footer">
+              <button class="btn btn-info btn-addon btn-sm"><i class="fa fa-plus"></i>Create Request</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- / tasks -->
+    </div>
+  </div>
+  <!-- / main -->
+</div>

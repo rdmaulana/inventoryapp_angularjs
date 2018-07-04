@@ -1,0 +1,103 @@
+<div class="bg-light lter b-b wrapper-md hidden-print" ng-controller="productDetailCtrl">
+  <a ui-sref="app.product.edit({id: products.id})" class="btn btn-sm btn-info btn-addon pull-right"><i class="fa fa-edit"></i>Edit</a>
+  <p class="pull-right">&nbsp;&nbsp;</p>
+  <a ng-click="remove()" class="btn btn-sm btn-danger btn-addon pull-right"><i class="fa fa-trash"></i>Delete</a>
+  <h1 class="m-n font-thin h3">Detail Product #{{products.nama}}</h1>
+</div>
+
+<div class="wrapper-md" ng-controller="productDetailCtrl">
+	<div class="row">
+		<div class="col-md-5">
+			<div class="panel b-a">
+	        <div class="panel-heading no-border bg-info">          
+	          <span class="text-lt">Product Info</span>
+	        </div>
+	        <div class="panel-body">       
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Product ID:</label>
+                <div class="col-sm-9">
+                  <label class="control-label"><strong>{{products.kode_barang}}</strong></label>
+                </div>
+              </div>
+              <div class="line line-dashed b-b line-lg pull-in"></div>             
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Product Name:</label>
+                <div class="col-sm-9">
+                  <label class="control-label"><strong>{{products.nama}}</strong></label>
+                </div>
+              </div>
+              <div class="line line-dashed b-b line-lg pull-in"></div>             
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Category:</label>
+                <div class="col-sm-9">
+                  <label class="control-label"><strong>{{products.kategori}}</strong></label>
+                </div>
+              </div>
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Date In:</label>
+                <div class="col-sm-9">
+                  <p class="control-label"><strong>{{products.tgl_masuk | date}}</strong></p>
+                </div>
+              </div>
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Division:</label>
+                <div class="col-sm-9">
+                  <div ng-if="products.divisi.id == 1">
+                  	<span class="label bg-success"><strong>{{products.divisi.nama_divisi}}</strong></span>
+                  </div>
+                  <div ng-if="products.divisi.id == 2">
+                  	<span class="label bg-warning"><strong>{{products.divisi.nama_divisi}}</strong></span>
+                  </div>
+                  <div ng-if="products.divisi.id == 3">
+                  	<span class="label bg-info"><strong>{{products.divisi.nama_divisi}}</strong></span>
+                  </div>
+                  <div ng-if="products.divisi.id == 4">
+                  	<span class="label bg-danger"><strong>{{products.divisi.nama_divisi}}</strong></span>
+                  </div>
+                </div>
+              </div>
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Stock:</label>
+                <div class="col-sm-9">
+                  <p class="control-label"><strong>{{products.stok}}</strong></p>
+                </div>
+              </div>
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Price:</label>
+                <div class="col-sm-9">
+                  <p class="control-label"><strong>{{products.harga_barang | rupiah}}</strong></p>
+                </div>
+              </div>
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Rent Price:</label>
+                <div class="col-sm-9">
+                  <p class="control-label"><strong>{{products.harga_sewa | rupiah}}</strong></p>
+                </div>
+              </div>
+            </div>
+	      </div>
+		</div>
+		<div class="col-md-7">
+	      <div class="panel b-a">
+	        <div class="panel-heading no-border bg-info">          
+	          <span class="text-lt">Product Images</span>
+	        </div>
+	        <div class="panel-body">
+	          <div ui-scroll-viewport class="row" style="height:360px;overflow-y: auto;" >
+			      	<div ng-if="products.foto_barang == null">
+			          	<center><img src="../../src/img/p0.jpg" class="img-responsive img-full"></center>
+			        </div>
+			        <div ng-if="products.foto_barang != null">
+			          	<center><img src="../../src/server/.tmp/uploads/{{products.foto_barang}}" class="img-responsive img-full"></center>
+			        </div>
+			      </div>
+	        </div>
+	      </div>
+	    </div>
+	</div>
+</div>

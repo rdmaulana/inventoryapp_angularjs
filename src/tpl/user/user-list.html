@@ -1,0 +1,61 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">List Users</h1>
+</div>
+<div class="wrapper-md" ng-controller="userListCtrl">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Data User
+    </div>
+    <div class="table-responsive">
+      <table ui-jq="dataTable" ui-options="TableOpt" class="table table-striped b-t b-b">
+        <thead>
+          <tr>
+            <th  style="width:5%">#</th>
+            <th  style="width:20%">User ID</th>
+            <th  style="width:15%">Name</th>
+            <th  style="width:10%">Username</th>
+            <th  style="width:10%">Contact</th>
+            <th  style="width:15%">Email</th>
+            <th  style="width:15%">Division</th>
+            <th  style="width:10%">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="d in list | orderBy: '-createdAt'">
+              <!-- <td>{{$index+1}}</td> -->
+              <td>
+                <span class="pull-left thumb-sm avatar m-r">
+                  <img src="../../src/img/a4.jpg" alt="...">
+                </span>
+              </td>
+              <td>{{d.kode_pengguna}}</td>
+              <td>{{d.nama_depan}}&nbsp;{{d.nama_belakang}}</td>
+              <td>{{d.username}}</td>
+              <td>{{d.no_hp}}</td>
+              <td>{{d.email}}</td>
+              <td>
+                <div ng-if="d.divisi.id == 1">
+                  <button class="btn btn-sm btn-success btn-rounded">{{d.divisi.nama_divisi}}</button>
+                </div>
+                <div ng-if="d.divisi.id == 4">
+                  <button class="btn btn-sm btn-danger btn-rounded">{{d.divisi.nama_divisi}}</button>
+                </div>
+                <div ng-if="d.divisi.id == 3">
+                  <button class="btn btn-sm btn-primary btn-rounded">{{d.divisi.nama_divisi}}</button>
+                </div>
+                <div ng-if="d.divisi.id == 2">
+                  <button class="btn btn-sm btn-warning btn-rounded">{{d.divisi.nama_divisi}}</button>
+                </div>
+              </td>
+              <td>
+                <button class="btn btn-sm btn-info" ui-sref="app.user.detail({id: d.id})">
+                  <i class="fa fa-plus text"></i>
+                  <span class="text">Details</span>
+                </button>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

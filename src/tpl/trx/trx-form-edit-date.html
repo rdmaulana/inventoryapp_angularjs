@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <h3 class="modal-title">Edit Date</h3>
+</div>
+<div class="modal-body">
+  <form role="form" novalidate name="editDateForm">
+    <div class="form-group">
+      <label for="name">Date Return</label>
+      <input type="text" class="form-control" id="name" placeholder="Enter Book Name" ng-model="formData.tgl_kembali">
+    </div>
+    <div class="form-group">
+      <label for="isbn">Real Date Return</label>
+      <input type="text" class="form-control" id="isbn" name="isbn" placeholder="ISBN" ng-model="formData.tgl_benar_kembali">
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" type="submit" form="editDateForm"  ng-click="updateData(formData)">Update Book</button>
+  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

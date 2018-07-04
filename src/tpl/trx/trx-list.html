@@ -1,0 +1,62 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">List Transaction</h1>
+</div>
+<div class="wrapper-md" ng-controller="trxListCtrl">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Data Transaction
+    </div>
+    <div class="table-responsive">
+      <table ui-jq="dataTable" ui-options="TrxOpt" class="table table-striped b-t b-b">
+        <thead>
+          <tr>
+            <th  style="width:5%">#</th>
+            <th  style="width:10%">TRX-ID</th>
+            <th  style="width:20%">USER</th>
+            <th  style="width:10%">Date</th>
+            <th  style="width:20%">Purpose</th>
+            <th  style="width:15%">Type</th>
+            <th  style="width:15%">Status</th>
+            <th  style="width:10%">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="d in trxList">
+              <td>{{$index+1}}</td>
+              <td>{{d.kode_transaksi}}</td>
+              <td>{{d.pengguna.nama_depan + ' ' + d.pengguna.nama_belakang}}</td>
+              <td>{{d.tgl_pinjam | date}}</td>
+              <td>{{d.tujuan}}</td>
+              <td>
+                <div ng-if="d.jenis_kebutuhan == true"> <!-- internal -->
+                  <button class="btn btn-xs btn-success btn-rounded">{{d.jenis_kebutuhan | loanType}}</button>
+                </div>
+                <div ng-if="d.jenis_kebutuhan == false"> <!-- external -->
+                  <button class="btn btn-xs btn-danger btn-rounded">{{d.jenis_kebutuhan | loanType}}</button>
+                </div>
+              </td>
+              <td>
+                <div ng-if="d.status == 'Request'">
+                  <button class="btn btn-xs btn-warning btn-rounded">{{d.status}}</button>
+                </div>
+                <div ng-if="d.status == 'Loaned'">
+                  <button class="btn btn-xs btn-danger btn-rounded">{{d.status}}</button>
+                </div>
+                <div ng-if="d.status == 'Returned'">
+                  <button class="btn btn-xs btn-success btn-rounded">{{d.status}}</button>
+                </div>
+              </td>
+              <td>
+                <div>
+                  <a class="btn btn-xs btn-info" ui-sref="app.trx.detail({id: d.id})">
+                    <i class="fa fa-plus text"></i>
+                    <span class="text">Details</span>
+                  </a>
+                </div>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

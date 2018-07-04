@@ -1,0 +1,122 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="profileCtrl">
+  <div class="col">
+    <div style="background:url(img/c4.jpg) center center; background-size:cover">
+      <div class="wrapper-lg bg-white-opacity">
+        <div class="row m-t">
+          <div class="col-sm-7">
+            <a href class="thumb-lg pull-left m-r">
+              <img src="img/a0.jpg" class="img-circle">
+            </a>
+            <div class="clear m-b">
+              <div class="m-b m-t-sm">
+                <span class="h3 text-black">
+                  {{user_data.nama_depan + ' ' + user_data.nama_belakang}}
+                </span>
+                <small class="label bg-success m-l">{{user_data.level}}</small>
+              </div>
+              <p class="m-b">
+                {{user_data.divisi.nama_divisi + ' Division'}}
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-5">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper bg-white b-b">
+      <ul class="nav nav-pills nav-sm">
+        <li class="active"><a href>Profile</a></li>
+        <li><a href>Edit Profile</a></li>
+      </ul>
+    </div>
+    <br>
+    <div class="">      
+      <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading font-bold">
+              <strong>Admin Info</strong>
+            </div>
+            <div class="panel-body">       
+              <div class="form-group">
+                <label class="col-sm-3 control-label">ID:</label>
+                <div class="col-sm-9">
+                  <label class="control-label"><strong>{{user_data.kode_pengguna}}</strong></label>
+                </div>
+              </div>
+              <div class="line line-dashed b-b line-lg pull-in"></div>             
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Name:</label>
+                <div class="col-sm-9">
+                  <label class="control-label"><strong>{{user_data.nama_depan}}&nbsp;{{user_data.nama_belakang}}</strong></label>
+                </div>
+              </div>
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Username:</label>
+                <div class="col-sm-9">
+                  <p class="control-label"><strong>{{user_data.username}}</strong></p>
+                </div>
+              </div>
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Email:</label>
+                <div class="col-sm-9">
+                  <p class="control-label"><strong>{{user_data.email}}</strong></p>
+                </div>
+              </div>
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Contact:</label>
+                <div class="col-sm-9">
+                  <p class="control-label"><strong>{{user_data.no_hp}}</strong></p>
+                </div>
+              </div>
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Division:</label>
+                <div class="col-sm-9">
+                  <p class="control-label"><strong>{{user_data.divisi.nama_divisi}}</strong></p>
+                </div>
+              </div>
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Address:</label>
+                <div class="col-sm-9">
+                  <p class="control-label"><strong>{{user_data.alamat}}</strong></p>
+                </div>
+              </div>
+            </div>
+            <footer class="panel-footer text-right bg-light lter">
+              <!-- <button type="submit" class="btn btn-success">History</button> -->
+            </footer>
+          </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading font-bold">
+              <strong>Edit Password</strong>
+            </div>
+            <div class="panel-body">
+              <form name="form" class="form-validation" ng-submit="updatePass()">
+                <!-- <div class="form-group">
+                  <label>Name</label>
+                  <input type="text" class="form-control" ng-model="user_data.nama_depan" required>
+                </div> -->
+                <div class="">
+                  <label>Old password</label>
+                  <input type="password" class="form-control" name="password" ng-model="password" required >   
+                </div>
+                <div class="">
+                  <label>New password</label>
+                  <input type="password" class="form-control" name="new_password" required ng-model="new_password" ui-validate=" '$value!==password' " ui-validate-watch=" 'password' ">
+                  <span ng-show="password == new_password" style="color:red">New password must be different!</span>
+                </div> <br>
+                <button type="submit" class="btn btn-sm btn-info" ng-disabled="form.$invalid">Update</button>
+              </form>
+            </div>    
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,202 @@
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">Request new product</h1>
+</div>
+<div class="wrapper-md">
+	<div ng-controller="productRequestCtrl">
+		<div class="wrapper-md">
+		  <tabset class="tab-container" ng-init="steps={percent:20, step1:true, step2:false, step3:false}">
+		    <tab heading="Step 1" active="steps.step1" select="steps.percent=10">
+		      <p class="m-b">Complete all step to submit your request.</p>
+		      <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+		      <h4>Request Form</h4>
+		      <form name="step1" class="form-validation" ng-submit="createRequest()">
+		        <div class="panel panel-default">
+		            <div class="panel-body">
+		              <div class="form-group pull-in clearfix">
+		              	<div class="col-sm-6">
+		              		<label>Request Code</label>
+		              		<input type="text" name="code" class="form-control" ng-model="request.kode_request" ng-change="step1.code.$valid ? (steps.percent=30) : (steps.percent=20)" required disabled>	
+		              	</div>
+		              	<div class="col-sm-6" ng-controller="DatepickerDemoCtrl">
+		              		<label>Request Date</label>
+		              		<div class="input-group">
+				              <input type="text" class="form-control" ng-model="tgl_request" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" disabled />
+				              <span class="input-group-btn">
+				                <button type="button" class="btn btn-default" ng-click="open($event)" disabled><i class="glyphicon glyphicon-calendar"></i></button>
+				              </span>
+				            </div>
+		              	</div>
+		              </div>
+		              <div class="form-group pull-in clearfix">
+		                <div class="col-sm-12">
+		                  <label>Purpose</label>
+		                  <div class="form-group">
+				              <textarea name="tujuan" class="form-control" rows="6" ng-model="request.tujuan" placeholder="Type your message" ng-change="step1.tujuan.$valid ? (steps.percent=30) : (steps.percent=20)" required></textarea>
+		                  </div>
+		                </div>
+		              </div>
+		            </div>
+		            <footer class="panel-footer text-right bg-light lter">
+		              <input type="submit" value="Next" class="btn btn-success btn-rounded" ng-disabled="step1.$invalid" ng-click="steps.step2=true">				
+		            </footer>
+		         </div>
+		       </form>
+		    </tab>
+		    <tab heading="Step 2" disabled="step1.$invalid" active="steps.step2" select="steps.percent=60">
+		    	<form name="step2" class="form-validation">
+		    		<div class="panel panel-default">
+			            <div class="panel-body">
+			            	<p class="m-b">Continue the next step</p>
+					        <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+					        <div class="col-sm-6">
+					        	<div class="form-group pull-in clearfix">
+					                <div class="">
+					                  <label>Product Name</label>
+							          <input type="text" name="product" class="form-control" ng-pattern="name" ng-model="detail.nama_barang" required>
+							          <span ng-show="step2.product.$error.pattern" style="color:red">Please do not enter data more than 50 word.</span>
+					            	</div> <br>
+					            	<div class="">
+					            		<label>Qty</label>
+					            		<input type="text" name="qty" class="form-control" ng-pattern="value" ng-model="detail.jumlah" required>
+					            		<span ng-show="step2.qty.$error.pattern" style="color:red">Please enter number only.</span>
+					            	</div> <br>
+					            	<div class="">
+						        		<label>Price (One product)</label>
+						        		<div class="input-group">
+						        			<span class="input-group-addon">Rp</span>
+						        			<input type="text" name="price" class="form-control" ng-pattern="value" ng-model="detail.harga_barang" required>
+						        			<span class="input-group-addon">.00</span>
+						        		</div>
+						        		<span ng-show="step2.price.$error.pattern" style="color:red">Please enter number only.</span>
+						        	</div> <br>
+						        	<div class="pull-right">
+						        		<!-- <button class="btn btn-warning" ng-click="reset()" ng-disabled="step2.$invalid">Reset</button> -->
+						        		<button type="submit" class="btn btn-primary" form="step2" ng-click="addDetail(detail)" ng-disabled="step2.$invalid">Add Item</button>	
+						        	</div>
+					            </div>	
+					        </div>
+					        <div class="col-sm-6">
+					        	<table class="table table-striped">
+					        		<thead>
+					        			<tr>
+					        				<th>#</th>
+					        				<th>Product Names</th>
+					        				<th>Qty</th>
+					        				<th>Price</th>
+					        			</tr>
+					        		</thead>
+					        		<tbody>
+										<tr ng-repeat="detail in rowProduct">
+											<td>{{$index+1}}</td>
+											<td>{{detail.nama_barang}}</td>
+											<td>{{detail.jumlah}}</td>
+											<td>{{detail.harga_barang | rupiah}}</td>
+										</tr>
+										<tr>
+											<td></td>
+											<td></td>
+											<td><strong>Total:</strong></td>
+											<td>{{getTotal() | rupiah}}</td>
+										</tr>					        			
+					        		</tbody>
+					        	</table>
+					        </div>
+			            </div>
+			            <footer class="panel-footer text-right bg-light lter">
+			              <input type="button" value="Prev" class="btn btn-info btn-rounded" ng-click="steps.step1=true">
+			              <input type="button" value="Next" class="btn btn-info btn-rounded" ng-disabled="step2.$invalid" ng-click="steps.step3=true">
+			            </footer>
+			        </div>
+		    	</form>
+		    </tab>
+		    <tab heading="Step 3" disabled="step2.$invalid" active="steps.step3" select="steps.percent=100">
+		    	<p class="m-b">Request new product success! Here your detail request.</p>
+      			<progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+      			<div>
+				    <img src="img/logo_aksimaya.png" alt=".">
+				    <!-- <i class="fa fa-apple fa fa-3x"></i> -->
+				    <div class="row">
+				      <div class="col-xs-6">
+				        <h3>PT Pusat Media Indonesia (Aksimaya)</h3>
+				        <p><a href="http://www.aksimaya.co.id">www.aksimaya.co.id</a></p>
+				        <p>Jl. Lincar I No.2<br>
+				          16152 Bantarjati, Bogor Utara<br>
+				          Bogor, Indonesia
+				        </p>
+				        <p>
+				          Telephone:  +62 251 8348484
+				        </p>
+				      </div>
+				      <div class="col-xs-6 text-right">
+				        <p class="h4">#{{datanya.isi.kode_request}}</p>
+				        <h5>{{datanya.isi.createdAt | date}}</h5>           
+				      </div>
+				    </div>
+				    <div class="well m-t bg-light lt">
+				      <div class="row">
+				        <div class="col-xs-6">
+				          <h3><strong>User Info:</strong></h3>
+				          <h5 class="m-t m-b">
+				            <hr>
+				            User ID: <strong>{{datanya.isi.pengguna.kode_pengguna}}</strong> <br><br>
+				            Name: <strong>{{datanya.isi.pengguna.nama_depan}}&nbsp;{{datanya.isi.pengguna.nama_belakang}}</strong> <br><br>
+				            Email: <strong>{{datanya.isi.pengguna.email}}</strong> <br><br>
+				            Contact: <strong>{{datanya.isi.pengguna.no_hp}}</strong> 
+				          </h5>
+				        </div>
+				        <div class="col-xs-6">
+				          <h3><strong>Request Info:</strong></h3>
+				          <h5 class="m-t m-b">
+				            <hr>
+				            Request ID: <strong>#{{datanya.isi.kode_request}}</strong> <br><br>
+				            Request date: <strong>{{datanya.isi.createdAt | date}}</strong><br><br>
+				            Purpose: <strong>{{datanya.isi.tujuan}}</strong><br><br>
+				          </h5>
+				        </div>
+				      </div>
+				    </div>
+				    
+				    <div class="line"></div>
+				    <table class="table table-striped bg-white b-a">
+				      <thead>
+				        <tr>
+				          <th>#</th>
+				          <th>Product Name</th>
+				          <th>Status</th>
+				          <th>Qty</th>
+				          <th>Price</th>
+				          <th>Total</th>
+				        </tr>
+				      </thead>
+				      <tbody>
+				        <tr ng-repeat="detail in datanya.isi.detail">
+				          <td>{{$index+1}}</td>
+				          <td>{{detail.nama_barang}}</td>
+				          <td>
+				          	<div ng-if="detail.status == false">
+				          		<span class="label bg-warning">{{detail.status | statusType}}</span>
+				          	</div>
+				          	<div ng-if="detail.status == true">
+				          		<span class="label bg-success">{{detail.status | statusType}}</span>
+				          	</div>
+				          </td>
+				          <td>{{detail.jumlah}}</td>
+				          <td>{{detail.harga_barang | rupiah}}</td>
+				          <td>{{detail.jumlah * detail.harga_barang | rupiah}}</td>
+				        </tr>
+				        <tr>
+				          <td></td>
+				          <td></td>
+				          <td></td>
+				          <td></td>
+				          <td ><h4><strong>Total</strong></h4></td>
+				          <td><h4>{{getTotal() | rupiah}}</h4></td>
+				        </tr>
+				      </tbody>
+				    </table>              
+				  </div>
+		    </tab>
+		  </tabset>
+		</div>
+	</div>
+</div>

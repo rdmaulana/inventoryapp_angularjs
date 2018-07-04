@@ -1,0 +1,35 @@
+
+  <div class="modal-header">
+    <h3 class="modal-title">Upload product image</h3>
+  </div>
+  <div class="modal-body">
+    <form ng-upload role="form" novalidate name="uploadForm" id="uploadForm" action="http://localhost:1337/barang/upload" method="post">
+        <div class="form-group">
+          <label for="image">Filename</label>
+          <input type="text" class="form-control" id="image" ng-model="product.foto_barang" disabled>
+        </div>
+        <!-- <div class="form-group">
+          <label for="isbn">ID Product:</label>
+          <input type="text" class="form-control" id="isbn" name="isbn" ng-model="product.kode_barang">
+        </div> -->
+        <div class="form-group">
+          <label>Choose files</label>
+          <input ui-jq="filestyle" type="file" name="userPhoto" id ="userPhoto" file-model="myFile" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control inline v-middle input-s" ng-model="uploadForm.file" valid-file required>
+          <!-- <p ng-show="uploadForm.userPhoto.maxSizeError">Max file size exceeded (1 MB)</p> -->
+          <div ng-if="uploadForm.file != null">
+            <span ng-show="uploadForm.userPhoto.$invalid" style="color:red">Image file not valid.</span>
+          </div>
+
+          <!-- <input type="file" id="flBook" name="flBook" valid-file required accept=".pdf" ng-model="ebook.file" ng-if="ebook.ebook_file.st_filename == undefined">
+          <span ng-if="formBook.$submitted || formBook.flBook.$touched" ng-cloak>
+            <span class="text-red" ng-show="formBook.flBook.$valid == false" ng-cloak>E-Book is required.</span>
+          </span>
+          <p ng-show="ebook.maxSizeError">Max file size exceeded (1 MB)</p> -->
+        </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-disabled="uploadForm.$invalid" type="submit" enctype="multipart/form-data" form="uploadForm" ng-click="updateImage(product)">Submit</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>  
+

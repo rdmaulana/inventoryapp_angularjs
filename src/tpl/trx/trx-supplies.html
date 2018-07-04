@@ -1,0 +1,45 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">List Transaction Supply</h1>
+</div>
+<div class="wrapper-md" ng-controller="trxListCtrl">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Data Transaction
+    </div>
+    <div class="table-responsive">
+      <table ui-jq="dataTable" ui-options="TrxOpt" class="table table-striped b-t b-b">
+        <thead>
+          <tr>
+            <th  style="width:5%">#</th>
+            <th  >TRX-ID</th>
+            <th  >User</th>
+            <th  >Date Out</th>
+            <th  >Purpose</th>
+            <th  >Status</th>
+            <th  >Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="d in trxSupply | orderBy: '-createdAt'">
+              <td>{{$index+1}}</td>
+              <td>{{d.kode_transaksi}}</td>
+              <td>{{d.pengguna.nama_depan + ' ' + d.pengguna.nama_belakang}}</td>
+              <td>{{d.tgl_pinjam | date}}</td>
+              <td>{{d.tujuan}}</td>
+              <td>
+                <button class="btn btn-xs btn-success btn-rounded">{{d.status}}</button>
+              </td>
+              <td>
+                <div>
+                  <button class="btn btn-xs btn-info" ui-sref="app.trx.detail_supply({id: d.id})">
+                    <i class="fa fa-plus text"></i>
+                    <span class="text">Details</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

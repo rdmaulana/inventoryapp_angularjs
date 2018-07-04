@@ -1,0 +1,58 @@
+    <div class="bg-light lter b-b wrapper-md">
+      <h1 class="m-n font-thin h3">Edit Order</h1>
+    </div>
+
+    <div class="wrapper-md">
+      <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+      <tabset class="tab-container" ng-init="steps={percent:20, step1:false, step2:true, step3:false}">
+        <tab heading="Step 1" disabled="true"></tab>
+        <tab heading="Step 2" disabled="step1.$invalid" active="steps.step2" select="steps.percent=50" ng-controller="editDateCtrl">
+          <h4>Insert real return date. <small>(Skip if product not return)</small></h4>
+          <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+          <table class="table table-striped bg-white b-a" name="step2">
+            <thead>
+              <tr>
+                <th style="width: 60px">QTY</th>
+                <th>DESCRIPTION</th>
+                <th>RETURN DATE</th>
+                <th>REAL RETURN DATE</th>
+                <th style="width: 140px">UNIT PRICE</th>
+                <th style="width: 140px">RENT PRICE</th>
+                <th>TOTAL</th>
+                <th>ACTION</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="detail in trxResult.trxDetail">
+                <td>{{detail.qty}}</td>
+                <td>{{detail.idbarang.nama}}</td>
+                <td>{{detail.tgl_kembali | date}}</td>
+                <td>
+                    {{detail.tgl_benar_kembali | date}}
+                </td>
+                <td>{{detail.idbarang.harga_barang | rupiah}}</td>
+                <td>{{detail.idbarang.harga_sewa | rupiah}}</td>
+                <td>{{detail.qty * detail.idbarang.harga_sewa | rupiah}}</td>
+                <td>
+                  <button class="btn btn-danger btn-single btn-sm" ng-click="editDialog(detail);">Edit</button>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td colspan="3" class="text-right"><h4><strong>Total</strong></h4></td>
+                <td><h4>{{getTotal() | rupiah}}</h4></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table> 
+          <div class="m-t m-b">
+            <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Prev</button>
+            <button type="button" class="btn btn-default btn-rounded" ng-click="steps.percent=100" ui-sref="app.trx.detail({id: trxResult.trx.id})">Click me to Finish</button>
+          </div>
+        </tab>
+      </tabset>
+    </div>
+    
+    

@@ -1,0 +1,30 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Latihan</h1>
+</div>
+<div class="wrapper-md" ng-controller="ngetestCtrl">
+ 	<h1>DATA TRANSAKSI #{{trxResult.trx.kode_transaksi}}</h1> <br>
+
+ 	<div class="col-md-12">
+ 		<table class="table table-hover table-responsive">
+	 		<thead>
+	 			<tr>
+	 				<th>No</th>
+	 				<th>Kode Transaksi</th>
+	 				<th>Nama Barang</th>
+	 				<th>Tanggal Pinjam</th>
+	 				<th>Tanggal Kembali</th>
+	 			</tr>
+	 		</thead>
+	 		<tbody>
+	 			<tr ng-repeat="d in trxResult.trxDetail">
+	 				<td>{{$index+1}}</td>
+	 				<td>{{d.transaksi.kode_transaksi}}</td>
+	 				<td>{{d.idbarang.nama}}</td>
+	 				<td>{{d.transaksi.tgl_pinjam | date}}</td>
+	 				<td>{{d.tgl_kembali | date}}</td>
+	 			</tr>
+	 		</tbody>
+	 	</table>
+ 	</div>
+ 	
+</div>

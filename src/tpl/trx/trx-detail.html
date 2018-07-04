@@ -1,0 +1,134 @@
+<div class="bg-light lter b-b wrapper-md hidden-print" ng-controller="trxDetailCtrl">
+  <a href class="btn btn-sm btn-info btn-addon pull-right" onClick="window.print();"><i class="fa fa-print"></i>Print</a>
+  <p class="pull-right">&nbsp;&nbsp;</p>
+  <a ui-sref="app.trx.edit({id: trxResult.trx.id})" class="btn btn-sm btn-danger btn-addon pull-right"><i class="fa fa-edit"></i>Edit</a>
+  <h1 class="m-n font-thin h3">Detail Transaction</h1>
+</div>
+<div class="wrapper-md" ng-controller="trxDetailCtrl">
+  <div>
+    <img src="img/logo_aksimaya.png" alt=".">
+    <!-- <i class="fa fa-apple fa fa-3x"></i> -->
+    <div class="row">
+      <div class="col-xs-6">
+        <h3>PT Pusat Media Indonesia (Aksimaya)</h3>
+        <p><a href="http://www.aksimaya.co.id">www.aksimaya.co.id</a></p>
+        <p>Jl. Lincar I No.2<br>
+          16152 Bantarjati, Bogor Utara<br>
+          Bogor, Indonesia
+        </p>
+        <p>
+          Telephone:  +62 251 8348484
+        </p>
+      </div>
+      <div class="col-xs-6 text-right">
+        <p class="h4">#{{trxResult.trx.kode_transaksi}}</p>
+        <h5>{{trxResult.trx.tgl_pinjam | date}}</h5>           
+      </div>
+    </div>
+    <div class="well m-t bg-light lt">
+      <div class="row">
+        <div class="col-xs-6">
+          <h3><strong>User Info:</strong></h3>
+          <h5 class="m-t m-b">
+            <hr>
+            User ID: <strong>{{trxData.trx.pengguna.kode_pengguna}}</strong> <br><br>
+            Name: <strong>{{trxData.trx.pengguna.nama_depan}}&nbsp;{{trxData.trx.pengguna.nama_belakang}}</strong> <br><br>
+            Email: <strong>{{trxData.trx.pengguna.email}}</strong> <br><br>
+            Contact: <strong>{{trxData.trx.pengguna.no_hp}}</strong> 
+          </h5>
+        </div>
+        <div class="col-xs-6">
+          <h3><strong>Order Info:</strong></h3>
+          <h5 class="m-t m-b">
+            <hr>
+            Order ID: <strong>#{{trxResult.trx.kode_transaksi}}</strong> <br><br>
+            Order type: <span ng-if="trxResult.trx.jenis_kebutuhan == false" class="label bg-danger"><strong>{{trxResult.trx.jenis_kebutuhan | loanType}}</strong></span>  
+                        <span ng-if="trxResult.trx.jenis_kebutuhan == true" class="label bg-success"><strong>{{trxResult.trx.jenis_kebutuhan | loanType}}</strong></span> <br><br>
+            Order date: <strong>{{trxResult.trx.tgl_pinjam | date}}</strong><br><br>
+            Order status: <span ng-if="trxResult.trx.status == 'Request'" class="label bg-warning">{{trxResult.trx.status}}</span> <span ng-if="trxResult.trx.status == 'Loaned'" class="label bg-danger">{{trxResult.trx.status}}</span> <span ng-if="trxResult.trx.status == 'Returned'" class="label bg-success">{{trxResult.trx.status}}</span><br> <br>
+          </h5>
+        </div>
+      </div>
+    </div>
+    
+    <div class="line"></div>
+    <table class="table table-striped bg-white b-a">
+      <thead>
+        <tr>
+          <th style="width: 60px">QTY</th>
+          <th>DESCRIPTION</th>
+          <th>RETURN DATE</th>
+          <th>REAL RETURN DATE</th>
+          
+          <!-- <th style="width: 140px">UNIT PRICE</th> -->
+          <!-- <th>HARI PINJAM</th> -->
+          <th>RENT PRICE (DAY)</th>
+          <th>PENALTY</th>
+          <th>TOTAL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="b in trxResult.trxDetail">
+          <td>{{b.qty}}</td>
+          <td>{{b.idbarang.nama}}</td>
+          <td>{{b.tgl_kembali | date}}</td>
+          <td>
+            <div ng-if="b.tgl_benar_kembali == null">
+              <p>Empty</p>
+            </div>
+            <div ng-if="b.tgl_benar_kembali != null">
+              {{b.tgl_benar_kembali | date}}  
+            </div>
+          </td>
+          <!-- <td>
+            {{ dayBorrow(b.transaksi.tgl_pinjam, b.tgl_kembali)}}
+          </td> -->
+          <td>
+            <div ng-if="trxResult.trx.jenis_kebutuhan == true">
+              {{0 | rupiah}}
+            </div>
+            <div ng-if="trxResult.trx.jenis_kebutuhan == false">
+              {{b.idbarang.harga_sewa | rupiah}}
+            </div>
+          </td>
+          <td>
+            <div ng-if="b.tgl_benar_kembali == null || trxResult.trx.jenis_kebutuhan == true">
+              {{0 | rupiah}}
+            </div>
+            <div ng-if="b.tgl_benar_kembali != null && trxResult.trx.jenis_kebutuhan == false">
+              {{ dayDiff(b.tgl_kembali, b.tgl_benar_kembali) * 10000 | rupiah}}
+            </div>
+          </td>
+          <td>
+            <div ng-if="b.tgl_benar_kembali == null && trxResult.trx.jenis_kebutuhan == true || trxResult.trx.jenis_kebutuhan == true">
+              {{0 | rupiah}}
+            </div>
+            <div ng-if="b.tgl_benar_kembali != null && trxResult.trx.jenis_kebutuhan == false">
+              {{ dayBorrow(b.transaksi.tgl_pinjam, b.tgl_kembali) * b.qty * b.idbarang.harga_sewa + (dayDiff(b.tgl_kembali, b.tgl_benar_kembali) * 10000) | rupiah}}
+            </div>
+            <div ng-if="trxResult.trx.jenis_kebutuhan == false && b.tgl_benar_kembali == null">
+              {{ dayBorrow(b.transaksi.tgl_pinjam, b.tgl_kembali) * b.qty * b.idbarang.harga_sewa | rupiah}}
+            </div>
+          </td>
+        </tr>
+        <tr ng-repeat="c in trxResult.trxDetail | limitTo: 1">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td colspan="3" class="text-right"><h4><strong>Total</strong></h4></td>
+          <td>
+            <div ng-if="trxResult.trx.jenis_kebutuhan == true">
+              <h4>{{0 | rupiah}}</h4>
+            </div>
+            <div ng-if="trxResult.trx.jenis_kebutuhan == false && c.tgl_benar_kembali != null">
+              <h4>{{getTotal() | rupiah}}</h4>
+            </div>
+            <div ng-if="trxResult.trx.jenis_kebutuhan == false && c.tgl_benar_kembali == null">
+              <h4>{{getTotal_awal() | rupiah}}</h4>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>              
+  </div>
+</div>
